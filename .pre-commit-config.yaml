@@ -21,7 +21,7 @@ repos:
   rev: v0.0.275
   hooks:
   - id: ruff
-    args: [--fix, --exit-nonzero-on-fix]
+    args: [--fix, --exit-non-zero-on-fix]
     # autofix on. If switched off, place this hook at the end.
 
 - repo: https://github.com/pycqa/isort
