@@ -1,17 +1,32 @@
 import time
 
 from aiida import engine, orm
+from aiida.engine.processes.workchains import workchain
 
 
 @engine.calcfunction
-def hello(task_name: str):
+def hello(task_name: str) -> orm.Str:
     time.sleep(5)
-    return f"Hello {task_name}"
+    return orm.Str(f"Hello from {task_name}!")
+
+
+class Minimal(engine.WorkChain):
+    @classmethod
+    def define(cls: type, spec: workchain.WorkChainSpec) -> None:
+        super().define(spec)
+        spec.outline(cls.run_a, cls.wait_for_a)
+
+    def run_a(self) -> None:
+        a = self.submit(hello, task_name="a")
+        engine.ToContext(a=a)
+
+    def wait_for_a(self) -> None:
+        assert self.ctx.a.is_finished_ok
 
 
 class P1(engine.WorkChain):
     @classmethod
-    def define(cls: type, spec: engine.WorkChainSpec) -> None:
+    def define(cls: type, spec: workchain.WorkChainSpec) -> None:
         super().define(spec)
         spec.input("cycle_point")
         spec.input("previous_b_pk")
@@ -59,3 +74,15 @@ class P1(engine.WorkChain):
 
     def check_child(self) -> None:
         self.ctx.child.is_finished_ok
+
+
+class CyclingWorkflow(engine.WorkChain):
+    @classmethod
+    def define(cls: type, spec: engine.WorkChainSpec) -> None:
+        super().define(spec)
+        spec.input("initial_cycle_point")
+        spec.input("final_cycle_point")
+        spec.outline(
+            cls.init,
+            engine.while_(cls.should_run)(cls.submit_a, cls.submit_b, cls.submit_cd),
+        )
