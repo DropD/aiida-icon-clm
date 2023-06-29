@@ -78,7 +78,7 @@ class P1(engine.WorkChain):
 
 class CyclingWorkflow(engine.WorkChain):
     @classmethod
-    def define(cls: type, spec: engine.WorkChainSpec) -> None:
+    def define(cls: type, spec: workchain.WorkChainSpec) -> None:
         super().define(spec)
         spec.input("initial_cycle_point")
         spec.input("final_cycle_point")
