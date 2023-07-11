@@ -3,7 +3,87 @@
 requires = ["setuptools>=46.1.0", "setuptools_scm[toml]>=5", "wheel"]
 build-backend = "setuptools.build_meta"
 
+[project]
+name = "aiida-c2sm"
+authors = [{name = "Rico Häuselmann", email = "rico.haeuselmann@cscs.ch"}]
+description = "Add a short description here"
+license = {file = "License.txt"}
+readme = "README.md"
+
+# Add here all kinds of additional classifiers as defined under
+# https://pypi.org/classifiers/
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+]
+
+dependencies = [
+  "aiida-core >= 2.0"
+]
+
+dynamic = ["version"]
+
+[project.optional-dependencies]
+testing = [
+  "setuptools",
+  "pytest",
+  "pytest-cov"
+]
+
+[project.urls]
+#"Documentation" = "https://github.com/eth-cscs/aiida-c2sm"
+#    Source = https://github.com/pyscaffold/pyscaffold/
+#    Changelog = https://pyscaffold.org/en/latest/changelog.html
+#    Tracker = https://github.com/pyscaffold/pyscaffold/issues
+#    Conda-Forge = https://anaconda.org/conda-forge/pyscaffold
+#    Download = https://pypi.org/project/PyScaffold/#files
+#    Twitter = https://twitter.com/PyScaffold
+
+[project.entry-points."aiida.workflows"]
+"c2sm.hello" = "aiida_c2sm.example_flow:Hello"
+"c2sm.minimal" = "aiida_c2sm.example_flow:Minimal"
+"c2sm.waiting_hello" = "aiida_c2sm.example_flow:WaitingHello"
+"c2sm.delay_wait" = "aiida_c2sm.example_flow:DelayWait"
+"c2sm.handoff_wait" = "aiida_c2sm.example_flow:HandoffWait"
+"c2sm.bakery_buy_ingredients" = "aiida_c2sm.bakery:BuyIngredients"
+"c2sm.bakery_make_dough" = "aiida_c2sm.bakery:MakeDough"
+"c2sm.bakery_pre_heat_oven" = "aiida_c2sm.bakery:PreHeatOven"
+"c2sm.bakery_bake_bread" = "aiida_c2sm.bakery:BakeBread"
+"c2sm.bakery_sell_bread" = "aiida_c2sm.bakery:SellBread"
+"c2sm.bakery_clean_oven" = "aiida_c2sm.bakery:CleanOven"
+"c2sm.bakery_buy_ingredients_from_income" = "aiida_c2sm.bakery:BuyIngredientsFromIncome"
+"c2sm.bakery_pre_heat_oven_from_clean_oven" = "aiida_c2sm.bakery:PreHeatOvenFromCleanOven"
+"c2sm.bakery_bakery_iteration" = "aiida_c2sm.bakery:BakeryIteration"
+"c2sm.bakery_wait_for_dependencies" = "aiida_c2sm.bakery:WaitForDependencies"
+"c2sm.bakery_cycle" = "aiida_c2sm.bakery:BakeryCycle"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+# Change if running only on Windows, Mac or Linux (comma-separated)
+platforms = ["any"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
 [tool.setuptools_scm]
 # For smarter version schemes and other configuration options,
 # check out https://github.com/pypa/setuptools_scm
 version_scheme = "no-guess-dev"
+
+[tool.pytest.ini_options]
+addopts = [
+  "--cov aiida_c2sm --cov-report term-missing",
+  "--verbose",
+]
+norecursedirs = ["dist", "build", ".tox"]
+testpaths = "tests"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.mccabe]
+max-complexity = 8
