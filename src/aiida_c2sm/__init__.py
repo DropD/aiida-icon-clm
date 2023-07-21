@@ -3,7 +3,7 @@ AiiDA Workflows for climate and weather simulations.
 """
 from importlib.metadata import PackageNotFoundError, version  # pragma: no cover
 
-from . import example_flow
+from . import example_flow, spice
 
 try:
     # Change here if project is renamed and does not equal the package name
@@ -14,4 +14,4 @@ except PackageNotFoundError:  # pragma: no cover
 finally:
     del version, PackageNotFoundError
 
-__all__ = ["__version__", "example_flow"]
+__all__ = ["__version__", "example_flow", "spice"]
