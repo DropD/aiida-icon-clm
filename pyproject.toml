@@ -18,7 +18,10 @@ classifiers = [
 ]
 
 dependencies = [
-  "aiida-core >= 2.0"
+  "aiida-core >= 2.0",
+  "jinja2",
+  "tabulate",
+  "pendulum",
 ]
 
 dynamic = ["version"]
@@ -56,6 +59,17 @@ testing = [
 "c2sm.bakery_bakery_iteration" = "aiida_c2sm.bakery:BakeryIteration"
 "c2sm.bakery_wait_for_dependencies" = "aiida_c2sm.bakery:WaitForDependencies"
 "c2sm.bakery_cycle" = "aiida_c2sm.bakery:BakeryCycle"
+"c2sm.spice_icon" = "aiida_c2sm.spice.icon_wc:IconWorkChain"
+
+[project.entry-points."aiida.calculations"]
+"c2sm.spice_prep" = "aiida_c2sm.spice.prep:GCM2IconPrep"
+"c2sm.spice_conv" = "aiida_c2sm.spice.conv2icon:Conv2Icon"
+"c2sm.spice_raw_icon" = "aiida_c2sm.spice.icon:Icon"
+
+[project.entry-points."aiida.parsers"]
+"c2sm.spice_prep" = "aiida_c2sm.spice.prep:PrepParser"
+"c2sm.spice_conv" = "aiida_c2sm.spice.conv2icon:Conv2IconParser"
+"c2sm.spice_raw_icon" = "aiida_c2sm.spice.icon:IconParser"
 
 [tool.setuptools]
 zip-safe = false

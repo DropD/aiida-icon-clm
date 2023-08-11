@@ -1,0 +1,22 @@
+&master_nml
+  lrestart             = {{lrestart}}
+  lrestart_write_last  = .TRUE.
+/
+&time_nml
+  ini_datetime_string  = "{{ini_datetime_string}}"
+  dt_restart           = {{dt_restart}}
+  is_relative_time     = .TRUE.
+/
+&master_model_nml
+  model_type              = 1
+  model_name              = "ATMO"
+  model_namelist_filename = "NAMELIST_{{expid}}"
+  model_min_rank          = 1
+  model_max_rank          = 65536
+  model_inc_rank          = 1
+/
+&master_time_control_nml
+  calendar             = "proleptic gregorian"
+  experimentStartDate  = "{{experiment_start_date}}"
+  experimentStopDate   = "{{experiment_stop_date}}"
+/

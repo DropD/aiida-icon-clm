@@ -1,0 +1,459 @@
+&parallel_nml
+  nproma            =  8
+  nblocks_c         = 1
+  p_test_run        = .false.
+  l_test_openmp     = .false.
+  l_log_checks      = .true.
+  num_io_procs      = {{num_io_procs}}
+  num_restart_procs = {{num_restart_procs}}
+  num_prefetch_proc = {{num_prefetch_proc}}
+  itype_comm        = 1
+  iorder_sendrecv   = 3
+  proc0_shift       = 0
+  use_omp_input   = .true.
+/
+&grid_nml
+  dynamics_grid_filename  = {{dynamics_grid_filename}}
+  radiation_grid_filename = {{radiation_grid_filename}}
+  dynamics_parent_grid_id = 0
+  lredgrid_phys           = .true.
+  lfeedback               = .true.
+  l_limited_area          = .true.
+  ifeedback_type          = 2
+  start_time  = 0., 1800.,3600.,
+/
+&initicon_nml
+  init_mode                    = 2
+  lread_ana                    = .false. ! (T) Read dwdana
+  ifs2icon_filename            = "{{ifs2icon_filename}}"
+  zpbl1       = 500.
+  zpbl2       = 1000.
+  ltile_init=.TRUE.
+  ltile_coldstart=.true.
+/
+&limarea_nml
+  itype_latbc     = 1
+  dtime_latbc     = {{dtime_latbc}}
+  latbc_varnames_map_file = 'dict.latbc'
+  latbc_path      = '{{latbc_path}}'
+  latbc_filename  = '{{gcm_prefix}}<y><m><d><h>_lbc.nc'
+! latbc_contains_qcqi = .false.     ! = .true.  if  qc, qi are in latbc
+  latbc_contains_qcqi = .true.      ! = .true.  if  qc, qi are in latbc
+                                    ! = .false. if qc, qi are not in latbc
+/
+&io_nml
+  itype_pres_msl               = 5
+  itype_rh                     = 1
+  precip_interval              = "{{precip_interval}}"
+  runoff_interval              = "{{runoff_interval}}"
+  sunshine_interval            = "{{sunshine_interval}}"
+  maxt_interval                = "{{maxt_interval}}"
+  gust_interval                = {{gust_interval}}
+  melt_interval                = "{{melt_interval}}"
+  lmask_boundary               = .true.
+  restart_write_mode="{{restart_write_mode}}"
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 1
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[0]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+               ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out01/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[0]}}"
+ ! ml_varlist                   = 'group:mode_iniana' ! this causes problems with operation="mean" in other output streams
+      ml_varlist                   = 'alb_si','c_t_lk','fr_land','fr_seaice','freshsnow','gz0','h_ice','h_ml_lk','h_snow','pres','qc','qi','qr','qs','qv',
+                                      'qv_s','rho_snow','smi','t_bot_lk','t_g','t_ice','t_mnw_lk','t_snow','t_so','t_wml_lk','temp','tke','u','v','w','w_i',
+                                      'w_snow','w_so_ice','z_ifc','plantevap','hsnow_max','snow_age'                         !'group:mode_iniana'
+  output_grid                  =  .TRUE.
+! stream_partitions_ml         =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 2
+ filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+ dom                          =  1            ! write all domains
+ output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[1]}}.    ! start, end, increment
+ steps_per_file               =  1
+ mode                         =  1            ! 1: forecast mode (relative t-axis)
+      ! 2: climate mode (absolute t-axis)
+ include_last                 = .TRUE.
+ steps_per_file_inclfirst     = .FALSE.
+ output_filename              = 'out02/icon'
+ filename_format              = '<output_filename>_<datetime2>'
+     operation                    = "{{operation[1]}}"
+ ml_varlist                   = 'w_i','t_so','w_so','w_so_ice','freshsnow','rho_snow','w_snow','t_s','t_g','w'
+ output_grid                  =  .TRUE.
+! stream_partitions_ml         =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 3
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[2]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out03/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[2]}}"
+  ml_varlist                   = 'clct','clct_mod','pres_msl','pres_sfc','qv_2m','rh_2m',
+                                     'runoff_g','runoff_s','rain_con','snow_con','rain_gsp','snow_gsp','tot_prec',
+                                     't_2m','td_2m','u_10m','v_10m','gust10','sp_10m','snow_melt'
+  output_grid                  =  .TRUE.
+! stream_partitions_ml       =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 4
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[3]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out04/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[3]}}"
+  ml_varlist                   = 'tmax_2m','tmin_2m', 'dursun', 'lai', 'plcov', 'rootdp',
+  output_grid                  =  .TRUE.
+! stream_partitions_ml       =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 5
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[4]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out05/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[4]}}"
+  ml_varlist                   = 'tqc','tqi','tqv','tqr','tqs','cape_ml','cape','h_snow'
+  output_grid                  =  .TRUE.
+! stream_partitions_ml       =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 6
+ filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+ dom                          =  1            ! write all domains
+ output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[5]}}.   ! start, end, increment
+ steps_per_file               =  1
+ mode                         =  1            ! 1: forecast mode (relative t-axis)
+                                              ! 2: climate mode (absolute t-axis)
+ include_last                 = .TRUE.
+ steps_per_file_inclfirst     = .FALSE.
+ output_filename              = 'out06/icon'
+ filename_format              = '<output_filename>_<datetime2>p'
+     operation                    = "{{operation[5]}}"
+ pl_varlist                   = 'geopot','qv','rh','temp','u','v','omega'
+ p_levels                     =  20000, 30000, 50000, 70000, 85000, 92500, 95000
+ output_grid                  =  .TRUE.
+! stream_partitions_ml         =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 7
+ filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+ dom                          =  1            ! write all domains
+ output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[6]}}.    ! start, end, increment
+ steps_per_file               =  1
+ mode                         =  1            ! 1: forecast mode (relative t-axis)
+      ! 2: climate mode (absolute t-axis)
+ include_last                 = .TRUE.
+ steps_per_file_inclfirst     = .FALSE.
+ output_filename              = 'out07/icon'
+ filename_format              = '<output_filename>_<datetime2>z'
+     operation                    = "{{operation[6]}}"
+ hl_varlist                   = 'pres','qv','rh','temp','u','v'
+ h_levels                     = 10.0, 34.5, 69.0, 116.0, 178.5, 258.5, 357.5, 477.0
+ output_grid                  =  .TRUE.
+! stream_partitions_ml       =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 8
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[7]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out08/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[7]}}"
+  ml_varlist                   = 'qhfl_s','lhfl_s','shfl_s','thu_s','sob_s',
+                                     'sob_t','sod_t','sodifd_s','thb_s','sou_s','thb_t','umfl_s','vmfl_s'
+  output_grid                  =  .TRUE.
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 9
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[8]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out09/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+      operation                    = "{{operation[8]}}"
+  ml_varlist                   = 'sodifd_s','sob_s','sou_s','thb_s'
+  output_grid                  =  .TRUE.
+! stream_partitions_ml       =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 10
+  filetype                     =  4            ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1            ! write all domains
+  output_bounds                =  {{sstart}}, {{snext}}, {{sout_inc[9]}}.    ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1            ! 1: forecast mode (relative t-axis)
+      ! 2: climate mode (absolute t-axis)
+  include_last                 = .TRUE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'out10/icon'
+  filename_format              = '<output_filename>_<datetime2>'
+  operation                    = "{{operation[9]}}"
+  ml_varlist                   = 'pres','qv','rh','temp','u','v',
+  output_grid                  =  .TRUE.
+!  stream_partitions_ml        =  2
+/
+&output_nml
+!-----------------------------------------------------------Output Namelist 11
+  filetype                     =  4              ! output format: 2=GRIB2, 4=NETCDFv2
+  dom                          =  1              ! write all domains
+  output_bounds                =  0., 0., 3600.  ! start, end, increment
+  steps_per_file               =  1
+  mode                         =  1              ! 1: forecast mode (relative t-axis)
+       ! 2: climate mode (absolute t-axis)
+  include_last                 = .FALSE.
+  steps_per_file_inclfirst     = .FALSE.
+  output_filename              = 'icon'
+  filename_format              = '<output_filename>_<datetime2>c'   ! file name base
+  ml_varlist                   = 'z_ifc','z_mc','topography_c','fr_land','depth_lk', 'fr_lake', 'soiltyp',
+  output_grid                  =  .TRUE.
+!  stream_partitions_ml 	      =  2
+/
+&meteogram_output_nml
+  lmeteogram_enabled = .FALSE.
+  ldistributed       = .FALSE.
+  loutput_tiles      = .TRUE.
+  n0_mtgrm           = 0
+  ninc_mtgrm         = 1
+  stationlist_tot = 50.050,  8.600, 'Frankfurt-Flughafen',
+                    52.220, 14.135, 'Lindenberg_Obs',
+                    52.167, 14.124, 'Falkenberg',
+                    47.800, 10.900, 'Hohenpeissenberg',
+                    53.630,  9.991, 'Hamburg-Flughafen',
+                    54.533,  9.550, 'Schleswig',
+  max_time_stamps    = 500
+  zprefix            = 'Meteogram_'
+  var_list           = '  '
+/
+&run_nml
+  num_lev        = 60
+  lvert_nest     = .false.
+  dtime          = {{dtime}}     ! timestep in seconds
+  ldynamics      = .TRUE.
+  ltransport     = .true.
+  ntracer        = 5
+  iforcing       = 3
+  ltestcase      = .false.
+! msg_level      = 13
+  msg_level      = 0
+  ltimer         = .true.
+  timers_level   = 10
+  check_uuid_gracefully = {{check_uuid_gracefully}}
+  output         = "nml" ! "nml"
+! debug_check_level = 10
+  debug_check_level = 0
+  lart           = .false.
+/
+&nwp_phy_nml
+  inwp_gscp       = 1
+  mu_rain         = 0.5
+  rain_n0_factor  = 0.1
+  inwp_convection = 1
+  inwp_radiation  = 4
+  inwp_cldcover   = 1
+  inwp_turb       = 1
+  inwp_satad      = 1
+  inwp_sso        = 1
+  inwp_gwd        = 1
+  inwp_surface    = 1
+  latm_above_top  = .true.
+  ldetrain_conv_prec = .true.
+  efdt_min_raylfric = 7200.
+  itype_z0         = 2
+  icapdcycl        = 3
+  icpl_aero_conv   = 1
+  icpl_aero_gscp   = 1
+  icpl_o3_tp       = 1
+  iprog_aero       = 0
+  dt_rad    = {{dt_rad}}
+  dt_conv   = {{dt_conv}}
+  dt_sso    = {{dt_sso}}
+  dt_gwd    = {{dt_gwd}}
+/
+&nwp_tuning_nml
+  itune_albedo = 0
+  tune_gkwake   = 1.5
+  tune_gfrcrit  = 0.425
+  tune_gkdrag   = 0.075
+  tune_dust_abs = 1.
+  tune_zvz0i    = 0.85
+  tune_box_liq_asy = 3.25
+  tune_minsnowfrac = 0.2
+  tune_gfluxlaun  = 3.75e-3
+  tune_rcucov = 0.075
+  tune_rhebc_land = 0.825
+  tune_gust_factor=7.0
+/
+&turbdiff_nml
+  tkhmin  = 0.6
+  tkhmin_strat = 1.0
+  tkmmin        = 0.75
+  pat_len       = 750.
+  c_diff  =  0.2
+  rlam_heat = 10.0
+  rat_sea =  0.8
+  ltkesso = .true.
+  frcsmot       = 0.2
+  imode_frcsmot = 2
+  alpha1  = 0.125
+  icldm_turb = 1
+  itype_sher = 1
+  ltkeshs       = .true.
+  a_hshr        = 2.0
+/
+&lnd_nml
+  sstice_mode    = 6   ! 4: SST and sea ice fraction are updated daily,
+                       !    based on actual monthly means
+  ci_td_filename = '{{gcm_converted_path}}/LOWBC_{{year}}_{{month}}.nc'
+  sst_td_filename= '{{gcm_converted_path}}/LOWBC_{{year}}_{{month}}.nc'
+  ntiles         = 3
+  nlev_snow      = 1
+  zml_soil       = {{zml_soil}}
+  lmulti_snow    = .false.
+  itype_heatcond = 3
+  idiag_snowfrac = 20
+  itype_snowevap = 3
+  lsnowtile      = .true.
+  lseaice        = .false. ! GPU port missing
+  llake          = .true.
+  itype_lndtbl   = 4
+  itype_evsl     = 4
+  itype_trvg     = 3
+  itype_root     = 2
+  itype_canopy   = 2
+  cwimax_ml      = 5.e-4
+  c_soil         = 1.25
+  c_soil_urb     = 0.5
+  lprog_albsi    = .true.
+/
+&radiation_nml
+  ecrad_data_path= '{{ecrad_data_path}}'
+  ecrad_isolver = 2 ! For GPU
+  ghg_filename =  '{{ghg_filename}}'
+  irad_co2    = 4           ! 4: from greenhouse gas scenario
+  irad_ch4    = 4           ! 4: from greenhouse gas scenario
+  irad_n2o    = 4           ! 4: from greenhouse gas scenario
+  irad_cfc11  = 4           ! 4: from greenhouse gas scenario
+  irad_cfc12  = 4           ! 4: from greenhouse gas scenario
+  irad_o3     = 79
+  irad_aero   = 6
+  albedo_type = 2          ! Modis albedo
+  direct_albedo = 4
+  albedo_whitecap = 1
+  direct_albedo_water = 3
+/
+&nonhydrostatic_nml
+  itime_scheme    = 4
+  vwind_offctr    = 0.2
+  damp_height     = 10500.
+  rayleigh_coeff  = 1.0
+  divdamp_order   = 24
+  divdamp_fac     = 0.004
+  divdamp_type    = 32
+  l_open_ubc      = .false.
+  igradp_method   = 3
+  l_zdiffu_t      = .true.
+  thslp_zdiffu    = 0.02
+  thhgtd_zdiffu   = 125.
+  htop_moist_proc = 22500.
+  hbot_qvsubstep  = 16000.
+  ndyn_substeps={{ndyn_substeps}}
+/
+&sleve_nml
+  min_lay_thckn   = 20.
+  max_lay_thckn   = 400.
+  htop_thcknlimit = 15000.
+  top_height      = 23500.
+  stretch_fac     = 0.9
+  decay_scale_1   = 4000.
+  decay_scale_2   = 2500.
+  decay_exp       = 1.2
+  flat_height     = 16000.
+/
+&dynamics_nml
+  iequations     = 3
+  idiv_method    = 1
+  divavg_cntrwgt = 0.50
+  lcoriolis      = .true.
+/
+&transport_nml
+  ivadv_tracer   = 3,3,3,3,3
+  itype_hlimit   = 3,4,4,4,4,
+  ihadv_tracer   = 52,2,2,2,2,
+  llsq_svd      = .true. ! For GPU
+  beta_fct       = 1.005
+/
+&diffusion_nml
+  hdiff_order      = 5
+  itype_vn_diffu   = 1
+  itype_t_diffu    = 2
+  hdiff_efdt_ratio = 32.
+  hdiff_smag_fac   = 0.025
+  lhdiff_vn        = .true.
+  lhdiff_temp      = .true.
+/
+&interpol_nml
+  nudge_zone_width  = 10
+  nudge_max_coeff   = 0.075
+  lsq_high_ord      = 3
+  l_intp_c2l        = .true.
+  l_mono_c2l        = .true.
+  rbf_scale_mode_ll = 2
+/
+&gridref_nml
+  grf_intmethod_e  = 6
+  grf_scalfbk      = 2
+  denom_diffu_v    = 150.
+/
+&extpar_nml
+  itopo                = 1
+  n_iter_smooth_topo   = 1,
+  hgtdiff_max_smooth_topo = 750.
+  heightdiff_threshold = 3000.
+  itype_vegetation_cycle = 3
+  itype_lwemiss = 2
+  extpar_filename = "{{extpar_filename}}"
+/
+&nudging_nml
+  nudge_type = 1
+  max_nudge_coeff_thermdyn = 0.075
+  max_nudge_coeff_vn = 0.04
+  nudge_start_height=10500
+/
