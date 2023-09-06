@@ -43,6 +43,7 @@ class Icon(engine.CalcJob):
             "restart_file_name",
             required=False,
             valid_type=orm.Str,
+            serializer=orm.to_aiida_type,
             help="Name of the restart file (or path relative to `restart_file_dir`).",
         )
         spec.input("master_namelist", valid_type=orm.SinglefileData)
@@ -50,26 +51,26 @@ class Icon(engine.CalcJob):
         spec.input(
             "lam_grid_relpath",
             valid_type=orm.Str,
-            help="Relative to ini_basedir",
             serializer=orm.to_aiida_type,
+            help="Relative to ini_basedir",
         )
         spec.input(
             "parent_grid_relpath",
             valid_type=orm.Str,
-            help="Relative to ini_basedir",
             serializer=orm.to_aiida_type,
+            help="Relative to ini_basedir",
         )
         spec.input(
             "extpar_relpath",
             valid_type=orm.Str,
-            help="Relative to ini_basedir",
             serializer=orm.to_aiida_type,
+            help="Relative to ini_basedir",
         )
         spec.input(
             "ghg_file_relpath",
             valid_type=orm.Str,
-            help="Relative to ini_basedir",
             serializer=orm.to_aiida_type,
+            help="Relative to ini_basedir",
         )
         spec.input("ecraddir", valid_type=orm.RemoteData)
         spec.output("restart_file_dir")
@@ -89,16 +90,16 @@ class Icon(engine.CalcJob):
             "1",
         ]
         options["parser_name"].default = "c2sm.spice_raw_icon"
-        #  options["environment_variables"].default = {
-        #      "OMP_NUM_THREADS": 1,
-        #      "ICON_THREADS": 1,
-        #      "OMP_SCHEDULE": "static,12",
-        #      "OMP_DYNAMIC": '"false"',
-        #      "OMP_STACKSIZE": "200M",
-        #      "NUM_THREAD_ICON": 1,
-        #      "GRAN_ICON": "core",
-        #      "NUM_IO_PROCS": 1,
-        #  }
+        options["environment_variables"].default = {
+            "GRAN_ICON": "core",
+            #      "OMP_NUM_THREADS": 1,
+            #      "ICON_THREADS": 1,
+            #      "OMP_SCHEDULE": "static,12",
+            #      "OMP_DYNAMIC": '"false"',
+            #      "OMP_STACKSIZE": "200M",
+            #      "NUM_THREAD_ICON": 1,
+            #      "NUM_IO_PROCS": 1,
+        }
         spec.exit_code(
             300,
             "ERROR_MISSING_OUTPUT_FILES",
@@ -122,11 +123,6 @@ class Icon(engine.CalcJob):
                 self.inputs.code.computer.uuid,
                 self.inputs.gcm_converted.get_remote_path(),
                 "gcm_converted",
-            ),
-            (
-                self.inputs.code.computer.uuid,
-                str(inidata_path / self.inputs.ifs2icon_filename.value),
-                self.inputs.ifs2icon_filename.value,
             ),
             (
                 self.inputs.code.computer.uuid,
@@ -167,14 +163,24 @@ class Icon(engine.CalcJob):
                 ecraddir_path := self.inputs.ecraddir.get_remote_path(),
                 pathlib.Path(ecraddir_path).name,
             ),
+            (
+                self.inputs.code.computer.uuid,
+                str(inidata_path / self.inputs.ifs2icon_filename.value),
+                self.inputs.ifs2icon_filename.value,
+            ),
         ]
         if "restart_file_dir" in self.inputs:
-            restart_path = self.inputs.restart_file_dir.get_remote_path()
+            restart_path = (
+                pathlib.Path(self.inputs.restart_file_dir.get_remote_path())
+                / self.inputs.restart_file_name.value
+            )
             calcinfo.remote_symlink_list += [
                 (
                     self.inputs.code.computer.uuid,
-                    restart_path,
-                    self.inputs.restart_file_name.value,
+                    str(restart_path),
+                    "multifile_restart_atm.mfr"
+                    if self.inputs.restart_file_name.value.startswith("multifile")
+                    else "restart_atm_DOM01.nc",
                 )
             ]
 

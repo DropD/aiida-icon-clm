@@ -1,6 +1,6 @@
-import datetime
 import textwrap
 
+import pendulum
 from aiida import common, engine, orm
 from aiida.engine.processes import builder
 
@@ -14,7 +14,7 @@ def get_params(prep_node: orm.CalcJobNode) -> orm.JsonableData:
     except common.NotExistent:
         return orm.JsonableData(
             conv2icon.Conv2IconParams(
-                start_date=datetime.datetime(year=1979, month=1, day=1),
+                start_date=pendulum.DateTime(year=1979, month=1, day=1, tz="utc"),
                 date=prep_node.inputs.parameters.obj.date,
                 cleanup_previous=False,
             ),

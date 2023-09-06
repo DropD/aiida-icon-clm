@@ -19,9 +19,12 @@ classifiers = [
 
 dependencies = [
   "aiida-core >= 2.0",
+  "aiida-shell",
   "jinja2",
   "tabulate",
   "pendulum",
+  "coolname",
+  "typing_extensions",
 ]
 
 dynamic = ["version"]
@@ -60,6 +63,8 @@ testing = [
 "c2sm.bakery_wait_for_dependencies" = "aiida_c2sm.bakery:WaitForDependencies"
 "c2sm.bakery_cycle" = "aiida_c2sm.bakery:BakeryCycle"
 "c2sm.spice_icon" = "aiida_c2sm.spice.icon_wc:IconWorkChain"
+"c2sm.spice_prepare" = "aiida_c2sm.spice.prepare.prep_workflow:PreparationWorkflow"
+"c2sm.gcm2icon" = "aiida_c2sm.spice.gcm2icon.workflow:Gcm2Icon"
 
 [project.entry-points."aiida.calculations"]
 "c2sm.spice_prep" = "aiida_c2sm.spice.prep:GCM2IconPrep"

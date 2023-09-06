@@ -5,6 +5,7 @@ import datetime
 import pathlib
 from typing import Callable
 
+import pendulum
 from aiida import orm
 
 from aiida_c2sm import exceptions
@@ -28,8 +29,8 @@ __all__ = ["get_gcm_data", "get_inidata", "get_inibasedir"]
 
 @dataclasses.dataclass
 class PrepParams:
-    date: datetime.datetime
-    next_date: datetime.datetime
+    date: pendulum.DateTime
+    next_date: pendulum.DateTime
     n_parallel_tasks: int
     utils_bindir: pathlib.Path
     cfu_bindir: pathlib.Path

@@ -1,0 +1,256 @@
+digraph {
+	graph [size="16,16"]
+	N3690 [label="Icon (3690)
+State: finished
+Exit Code: 300" color=red fillcolor="#de707fff" penwidth=6 shape=rectangle style=filled]
+	N1964 [label="RemoteData (1964)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N1965 [label="RemoteData (1965)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N1978 [label="InstalledCode (1978)
+Pre-Installed spice prep script." fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N2047 [label="InstalledCode (2047)
+SPICE conv2icon script" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N2079 [label="RemoteData (2079)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N2084 [label="RemoteData (2084)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N2514 [label="InstalledCode (2514)
+SPICE ICON binary" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3628 [label="Dict (3628)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3629 [label="Dict (3629)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3630 [label="Dict (3630)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3631 [label="Dict (3631)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3632 [label="JsonableData (3632)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3633 [label="Str (3633)
+hot-clam" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3634 [label="Gcm2Icon (3634)
+State: finished
+Exit Code: 11" fillcolor="#e38851ff" penwidth=0 shape=rectangle style=filled]
+	N3635 [label="JsonableData (3635)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3636 [label="GCM2IconPrep (3636)
+State: finished
+Exit Code: 0" fillcolor="#de707fff" penwidth=0 shape=rectangle style=filled]
+	N3639 [label="RemoteData (3639)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3640 [label="JsonableData (3640)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3641 [label="Conv2Icon (3641)
+State: finished
+Exit Code: 0" fillcolor="#de707fff" penwidth=0 shape=rectangle style=filled]
+	N3644 [label="RemoteData (3644)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3646 [label="Dict (3646)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3647 [label="Str (3647)
+europe044/europe044_DOM01.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3648 [label="Str (3648)
+europe044/europe044_DOM01.parent.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3649 [label="Str (3649)
+europe044/external_parameter_icon_europe044_DOM01_tiles.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3650 [label="Str (3650)
+greenhouse_gases/bc_greenhouse_rcp45_1765-2500.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3651 [label="JsonableData (3651)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3652 [label="IconWorkChain (3652)
+State: finished
+Exit Code: 0" fillcolor="#e38851ff" penwidth=0 shape=rectangle style=filled]
+	N3653 [label="JsonableData (3653)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3654 [label="GCM2IconPrep (3654)
+State: finished
+Exit Code: 0" fillcolor="#de707fff" penwidth=0 shape=rectangle style=filled]
+	N3655 [label="Str (3655)
+&master_nml
+  lrestart             = .FALSE.
+  lrestart_write_last  = .TRUE.
+...
+/" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3656 [label="str_to_namelist (3656)
+State: finished
+Exit Code: 0" fillcolor="#de707f77" penwidth=0 shape=rectangle style=filled]
+	N3657 [label="SinglefileData (3657)
+file.txt" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3658 [label="Str (3658)
+&parallel_nml
+  nproma            =  8
+  nblocks_c         = 1
+...
+/" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3659 [label="str_to_namelist (3659)
+State: finished
+Exit Code: 0" fillcolor="#de707f77" penwidth=0 shape=rectangle style=filled]
+	N3660 [label="SinglefileData (3660)
+file.txt" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3661 [label="Str (3661)
+caf1979010100_ini.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3662 [label="Icon (3662)
+State: finished
+Exit Code: 0" fillcolor="#de707fff" penwidth=0 shape=rectangle style=filled]
+	N3666 [label="Str (3666)
+multifile_restart_atm_19790201T000000Z.mfr" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3667 [label="RemoteData (3667)
+@Daint" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3669 [label="RemoteData (3669)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3670 [label="JsonableData (3670)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3671 [label="Conv2Icon (3671)
+State: finished
+Exit Code: 0" fillcolor="#de707fff" penwidth=0 shape=rectangle style=filled]
+	N3674 [label="RemoteData (3674)
+@Daint-mpirun" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3676 [label="Dict (3676)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3677 [label="Str (3677)
+europe044/europe044_DOM01.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3678 [label="Str (3678)
+europe044/europe044_DOM01.parent.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3679 [label="Str (3679)
+europe044/external_parameter_icon_europe044_DOM01_tiles.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3680 [label="Str (3680)
+greenhouse_gases/bc_greenhouse_rcp45_1765-2500.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3681 [label="JsonableData (3681)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3682 [label="IconWorkChain (3682)
+State: finished
+Exit Code: 11" fillcolor="#e38851ff" penwidth=0 shape=rectangle style=filled]
+	N3683 [label="Str (3683)
+&master_nml
+  lrestart             = .TRUE.
+  lrestart_write_last  = .TRUE.
+...
+/" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3684 [label="str_to_namelist (3684)
+State: finished
+Exit Code: 0" fillcolor="#de707f77" penwidth=0 shape=rectangle style=filled]
+	N3685 [label="SinglefileData (3685)
+file.txt" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3686 [label="Str (3686)
+&parallel_nml
+  nproma            =  8
+  nblocks_c         = 1
+...
+/" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3687 [label="str_to_namelist (3687)
+State: finished
+Exit Code: 0" fillcolor="#de707f77" penwidth=0 shape=rectangle style=filled]
+	N3688 [label="SinglefileData (3688)
+file.txt" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3689 [label="Str (3689)
+caf1979010100_ini.nc" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3650 -> N3662 [label=ghg_file_relpath color="#000000" style=solid]
+	N3651 -> N3652 [label=parameters color="#000000" style=dashed]
+	N2079 -> N3671 [label=ini_basedir color="#000000" style=solid]
+	N2047 -> N3634 [label=conv__code color="#000000" style=dashed]
+	N1964 -> N3634 [label=inidata color="#000000" style=dashed]
+	N3677 -> N3690 [label=lam_grid_relpath color="#000000" style=solid]
+	N3682 -> N3690 [label=CALL color="#000000" style=dotted]
+	N3681 -> N3682 [label=parameters color="#000000" style=dashed]
+	N1978 -> N3634 [label=prep__code color="#000000" style=dashed]
+	N2084 -> N3662 [label=ecraddir color="#000000" style=solid]
+	N1964 -> N3641 [label=boundary_data color="#000000" style=solid]
+	N3679 -> N3690 [label=extpar_relpath color="#000000" style=solid]
+	N3686 -> N3687 [label=namelists color="#000000" style=solid]
+	N1978 -> N3636 [label=code color="#000000" style=solid]
+	N3688 -> N3690 [label=model_namelist color="#000000" style=solid]
+	N3661 -> N3662 [label=ifs2icon_filename color="#000000" style=solid]
+	N3634 -> N3652 [label=CALL color="#000000" style=dotted]
+	N3634 -> N3641 [label=CALL color="#000000" style=dotted]
+	N3646 -> N3652 [label=options color="#000000" style=dashed]
+	N3634 -> N3654 [label=CALL color="#000000" style=dotted]
+	N3683 -> N3684 [label=namelists color="#000000" style=solid]
+	N3649 -> N3652 [label=extpar_relpath color="#000000" style=dashed]
+	N3659 -> N3660 [label=result color="#000000" style=solid]
+	N3687 -> N3688 [label=result color="#000000" style=solid]
+	N3629 -> N3634 [label=conv__computer_options color="#000000" style=dashed]
+	N2079 -> N3641 [label=ini_basedir color="#000000" style=solid]
+	N3633 -> N3652 [label=expid color="#000000" style=dashed]
+	N2047 -> N3671 [label=code color="#000000" style=solid]
+	N3633 -> N3682 [label=expid color="#000000" style=dashed]
+	N2514 -> N3690 [label=code color="#000000" style=solid]
+	N3678 -> N3690 [label=parent_grid_relpath color="#000000" style=solid]
+	N3633 -> N3634 [label=experiment_id color="#000000" style=dashed]
+	N3682 -> N3684 [label=CALL color="#000000" style=dotted]
+	N3634 -> N3636 [label=CALL color="#000000" style=dotted]
+	N3656 -> N3657 [label=result color="#000000" style=solid]
+	N1978 -> N3654 [label=code color="#000000" style=solid]
+	N3653 -> N3654 [label=parameters color="#000000" style=solid]
+	N3679 -> N3682 [label=extpar_relpath color="#000000" style=dashed]
+	N1965 -> N3634 [label=gcm_data color="#000000" style=dashed]
+	N3662 -> N3667 [label=restart_file_dir color=red penwidth=4 style=solid]
+	N3634 -> N3682 [label=CALL color="#000000" style=dotted]
+	N2079 -> N3682 [label=ini_basedir color="#000000" style=dashed]
+	N3677 -> N3682 [label=lam_grid_relpath color="#000000" style=dashed]
+	N3689 -> N3690 [label=ifs2icon_filename color="#000000" style=solid]
+	N3649 -> N3662 [label=extpar_relpath color="#000000" style=solid]
+	N2084 -> N3652 [label=ecraddir color="#000000" style=dashed]
+	N1964 -> N3682 [label=boundary_data color="#000000" style=dashed]
+	N3682 -> N3687 [label=CALL color="#000000" style=dotted]
+	N2047 -> N3641 [label=code color="#000000" style=solid]
+	N3639 -> N3641 [label=gcm_prepared color=red penwidth=4 style=solid]
+	N3647 -> N3662 [label=lam_grid_relpath color="#000000" style=solid]
+	N2514 -> N3652 [label=code color="#000000" style=dashed]
+	N2514 -> N3634 [label=icon__code color="#000000" style=dashed]
+	N3648 -> N3652 [label=parent_grid_relpath color="#000000" style=dashed]
+	N3650 -> N3652 [label=ghg_file_relpath color="#000000" style=dashed]
+	N2079 -> N3634 [label=ini_basedir color="#000000" style=dashed]
+	N2514 -> N3682 [label=code color="#000000" style=dashed]
+	N3628 -> N3634 [label=prep__computer_options color="#000000" style=dashed]
+	N3655 -> N3656 [label=namelists color="#000000" style=solid]
+	N1964 -> N3652 [label=boundary_data color="#000000" style=dashed]
+	N3644 -> N3662 [label=gcm_converted color=red penwidth=4 style=solid]
+	N3641 -> N3644 [label=converted color=red penwidth=4 style=solid]
+	N3658 -> N3659 [label=namelists color="#000000" style=solid]
+	N2079 -> N3652 [label=ini_basedir color="#000000" style=dashed]
+	N3666 -> N3690 [label=restart_file_name color=red penwidth=4 style=solid]
+	N3652 -> N3667 [label=restart_file_dir color="#000000" style=dashed]
+	N1964 -> N3690 [label=boundary_data color="#000000" style=solid]
+	N1964 -> N3682 [label=inidata color="#000000" style=dashed]
+	N3684 -> N3685 [label=result color="#000000" style=solid]
+	N1964 -> N3662 [label=boundary_data color="#000000" style=solid]
+	N3652 -> N3662 [label=CALL color="#000000" style=dotted]
+	N3667 -> N3682 [label=restart_file_dir color="#000000" style=dashed]
+	N2084 -> N3634 [label=ecraddir color="#000000" style=dashed]
+	N3680 -> N3690 [label=ghg_file_relpath color="#000000" style=solid]
+	N3662 -> N3666 [label=restart_file_name color=red penwidth=4 style=solid]
+	N3633 -> N3690 [label=expid color="#000000" style=solid]
+	N3657 -> N3662 [label=master_namelist color="#000000" style=solid]
+	N3644 -> N3652 [label=gcm_converted color="#000000" style=dashed]
+	N3660 -> N3662 [label=model_namelist color="#000000" style=solid]
+	N3640 -> N3641 [label=parameters color="#000000" style=solid]
+	N3674 -> N3682 [label=gcm_converted color="#000000" style=dashed]
+	N1964 -> N3652 [label=inidata color="#000000" style=dashed]
+	N2084 -> N3682 [label=ecraddir color="#000000" style=dashed]
+	N2514 -> N3662 [label=code color="#000000" style=solid]
+	N1965 -> N3636 [label=gcm_data color=red penwidth=4 style=solid]
+	N3652 -> N3666 [label=restart_file_name color="#000000" style=dashed]
+	N2084 -> N3690 [label=ecraddir color="#000000" style=solid]
+	N3671 -> N3674 [label=converted color=red penwidth=4 style=solid]
+	N3654 -> N3669 [label=gcm_prepared color=red penwidth=4 style=solid]
+	N3670 -> N3671 [label=parameters color="#000000" style=solid]
+	N3635 -> N3636 [label=parameters color="#000000" style=solid]
+	N1964 -> N3690 [label=inidata color="#000000" style=solid]
+	N1964 -> N3634 [label=boundary_data color="#000000" style=dashed]
+	N3685 -> N3690 [label=master_namelist color="#000000" style=solid]
+	N3666 -> N3682 [label=restart_file_name color="#000000" style=dashed]
+	N3647 -> N3652 [label=lam_grid_relpath color="#000000" style=dashed]
+	N1964 -> N3662 [label=inidata color="#000000" style=solid]
+	N2079 -> N3690 [label=ini_basedir color="#000000" style=solid]
+	N1964 -> N3671 [label=boundary_data color="#000000" style=solid]
+	N1965 -> N3654 [label=gcm_data color=red penwidth=4 style=solid]
+	N3667 -> N3690 [label=restart_file_dir color=red penwidth=4 style=solid]
+	N3636 -> N3639 [label=gcm_prepared color=red penwidth=4 style=solid]
+	N3648 -> N3662 [label=parent_grid_relpath color="#000000" style=solid]
+	N2079 -> N3662 [label=ini_basedir color="#000000" style=solid]
+	N3669 -> N3671 [label=gcm_prepared color=red penwidth=4 style=solid]
+	N3633 -> N3662 [label=expid color="#000000" style=solid]
+	N3634 -> N3671 [label=CALL color="#000000" style=dotted]
+	N3652 -> N3656 [label=CALL color="#000000" style=dotted]
+	N3676 -> N3682 [label=options color="#000000" style=dashed]
+	N3652 -> N3659 [label=CALL color="#000000" style=dotted]
+	N3674 -> N3690 [label=gcm_converted color=red penwidth=4 style=solid]
+	N3632 -> N3634 [label=parameters color="#000000" style=dashed]
+	N3630 -> N3634 [label=icon__computer_options color="#000000" style=dashed]
+	N3680 -> N3682 [label=ghg_file_relpath color="#000000" style=dashed]
+	N3678 -> N3682 [label=parent_grid_relpath color="#000000" style=dashed]
+	N3631 -> N3634 [label=computer_options color="#000000" style=dashed]
+	N3691 [label="RemoteData (3691)
+@Daint" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3692 [label="FolderData (3692)" fillcolor="#8cd499ff" penwidth=0 shape=ellipse style=filled]
+	N3690 -> N3692 [label=retrieved color="#000000" style=solid]
+	N3690 -> N3691 [label=remote_folder color="#000000" style=solid]
+}

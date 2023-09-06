@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import dataclasses
-import datetime
 import pathlib
 
+import pendulum
 from aiida import engine, orm
 from aiida.common import datastructures, folders
 from aiida.engine.processes.calcjobs import calcjob
@@ -114,9 +114,8 @@ class Conv2IconParser(parser.Parser):
 
 @dataclasses.dataclass
 class Conv2IconParams:
-    start_date: datetime.datetime
-    date: datetime.datetime
-    max_pp: int = 12
+    start_date: pendulum.DateTime
+    date: pendulum.DateTime
     hincbound: int = 6
     n_parallel_tasks: int = 12
     gcm_prefix: str = "caf"
@@ -136,7 +135,7 @@ class Conv2IconParams:
         return cls(
             **data
             | {
-                "start_date": datetime.datetime.fromisoformat(data["start_date"]),
-                "date": datetime.datetime.fromisoformat(data["date"]),
+                "start_date": pendulum.DateTime.fromisoformat(data["start_date"]),
+                "date": pendulum.DateTime.fromisoformat(data["date"]),
             }
         )

@@ -14,6 +14,7 @@ import pendulum
 import tabulate
 from aiida import engine, orm
 from aiida.engine.processes.workchains import workchain
+from typing_extensions import Self
 
 from aiida_c2sm import spice
 
@@ -22,7 +23,7 @@ class IconWorkChain(engine.WorkChain):
     """Workchain for SPICE ICON runs."""
 
     @classmethod
-    def define(cls: type, spec: workchain.WorkChainSpec) -> None:
+    def define(cls: type[Self], spec: workchain.WorkChainSpec) -> None:
         super().define(spec)
         spec.expose_inputs(
             spice.icon.Icon,
@@ -52,10 +53,11 @@ class IconWorkChain(engine.WorkChain):
             pendulum.instance(params.date).naive() + pendulum.duration(months=1)
         ).naive()
         next_date = next_date_full.start_of("month").naive()
+        self.ctx.ifs2icon_filename = f"{params.gcm_prefix}{ystartdate}_ini.nc"
         if params.start_date == params.date:
             nmlvars["lrestart"] = ".FALSE."
             nmlvars["check_uuid_gracefully"] = ".FALSE."
-            nmlvars["ifs2icon_filename"] = f"{params.gcm_prefix}{ystartdate}_ini.nc"
+            nmlvars["ifs2icon_filename"] = self.ctx.ifs2icon_filename
         else:
             nmlvars["lrestart"] = ".TRUE."
             nmlvars["check_uuid_gracefully"] = ".TRUE."
@@ -65,8 +67,6 @@ class IconWorkChain(engine.WorkChain):
             nmlvars["restart_write_mode"] = "sync"
         else:
             nmlvars["restart_write_mode"] = "dedicated procs multifile"
-
-        self.ctx.ifs2icon_filename = nmlvars["ifs2icon_filename"]
 
         self.ctx.master_namelist = str_to_namelist(
             make_master_namelists(
@@ -100,19 +100,8 @@ class IconWorkChain(engine.WorkChain):
     def launch_icon(self) -> None:
         icon_builder = self.inputs.code.get_builder()
         icon_builder.metadata.computer = self.inputs.code.computer
-        icon_builder.metadata.options.account = self.inputs.options["account"]
-        icon_builder.metadata.options.max_wallclock_seconds = self.inputs.options[
-            "max_wallclock_seconds"
-        ]
-        icon_builder.metadata.options.queue_name = self.inputs.options["queue_name"]
-        icon_builder.metadata.options.custom_scheduler_commands = self.inputs.options[
-            "custom_scheduler_commands"
-        ]
-        icon_builder.metadata.options.max_memory_kb = self.inputs.options[
-            "max_memory_kb"
-        ]
-        #  for key, value in self.inputs.options["environment_variables"].items():
-        #      icon_builder.metadata.options.environment_variables[key] = value
+        for key, value in self.inputs.options.items():
+            icon_builder.metadata.options[key] = value
 
         self.to_context(
             icon=self.submit(

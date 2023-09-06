@@ -1,6 +1,6 @@
-import datetime
 import pathlib
 
+import pendulum
 from aiida import common, engine, orm
 
 from aiida_c2sm import spice
@@ -14,8 +14,8 @@ def get_params() -> orm.JsonableData:
         src_dir = pathlib.Path("/scratch/snx3000/mjaehn/sandbox_workflow/spice/src")
         return orm.JsonableData(
             spice.data.PrepParams(
-                date=datetime.datetime(year=1979, month=1, day=1),
-                next_date=datetime.datetime(year=1979, month=2, day=1),
+                date=pendulum.datetime(year=1979, month=1, day=1, tz="utc"),
+                next_date=pendulum.datetime(year=1979, month=2, day=1, tz="utc"),
                 n_parallel_tasks=12,
                 utils_bindir=src_dir / "utils" / "bin",
                 cfu_bindir=src_dir / "cfu" / "bin",
